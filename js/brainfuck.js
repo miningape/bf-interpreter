@@ -6,7 +6,7 @@ class BFInterpreter {
         // Convert a string to its ASCII number
         this.STRING = function (char) { return char.charCodeAt(0); };
         // Initialization
-        this.symbols = text.match(/[\>\<\+\-\[\]\.\,]/g); // Get symbols
+        this.symbols = text.match(/[\>\<\+\-\[\]\.\,\^]/g); // Get symbols
         this.environment = Array(envSize).fill(0); // Load environment
         this.pointer = 0; // Set data pointer
         this.position = 0; // Set initial position
@@ -53,6 +53,11 @@ class BFInterpreter {
                     break;
                 case '.': // Write data at the current cell to the terminal
                     this.printfn.call(this, this.ASCII(this.environment[this.pointer]));
+                    this.printfn.call(this, '\n');
+                    break;
+                case '^': // Breakpoint: Outputs environment
+                    this.printfn.call(this, this.environment);
+                    this.printfn.call(this, '\n');
                     break;
                 // There is somehow an unrecognized symbol
                 default: throw ("Unrecognized Symbol");

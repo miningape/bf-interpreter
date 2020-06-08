@@ -22,7 +22,7 @@ class BFInterpreter {
 
     constructor(text: String, input: String[] = [], envSize: number = 30000, output: Function = console.log) {
         // Initialization
-        this.symbols = text.match(/[\>\<\+\-\[\]\.\,]/g) as Array<String>;  // Get symbols
+        this.symbols = text.match(/[\>\<\+\-\[\]\.\,\^]/g) as Array<String>;  // Get symbols
         this.environment = Array<number>(envSize).fill(0);  // Load environment
         this.pointer = 0;                                   // Set data pointer
         this.position = 0;                                  // Set initial position
@@ -78,8 +78,14 @@ class BFInterpreter {
                 
                 case '.':   // Write data at the current cell to the terminal
                     this.printfn.call(this, this.ASCII(this.environment[this.pointer]));
+                    this.printfn.call(this, '\n');
                     break;
 
+                case '^':   // Breakpoint: Outputs environment
+                    this.printfn.call(this, this.environment);
+                    this.printfn.call(this, '\n');
+                    break;
+                    
                 // There is somehow an unrecognized symbol
                 default: throw ("Unrecognized Symbol");
             }
