@@ -53,7 +53,6 @@ class BFInterpreter {
                     break;
                 case '.': // Write data at the current cell to the terminal
                     this.printfn.call(this, this.ASCII(this.environment[this.pointer]));
-                    this.printfn.call(this, '\n');
                     break;
                 case '^': // Breakpoint: Outputs environment
                     this.printfn.call(this, this.environment);
